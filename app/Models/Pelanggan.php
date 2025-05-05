@@ -9,4 +9,18 @@ class Pelanggan extends Model
 {
     /** @use HasFactory<\Database\Factories\PelangganFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'kode',
+        'nama',
+        'alamat',
+        'email',
+        'point',
+        'level',
+    ];
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class . 'pelanggan_id');
+    }
 }

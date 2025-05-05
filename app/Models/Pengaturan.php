@@ -9,4 +9,6 @@ class Pengaturan extends Model
 {
     /** @use HasFactory<\Database\Factories\PengaturanFactory> */
     use HasFactory;
+
+    protected $guarded = [];
 }

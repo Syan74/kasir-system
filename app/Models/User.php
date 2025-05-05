@@ -18,8 +18,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
+        'nama',
+        'role',
+        'isActive',
         'password',
     ];
 
@@ -44,5 +46,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'kasir_id');
     }
 }
