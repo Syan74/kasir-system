@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelanggan;
+use Illuminate\Http\Request;
 use App\Http\Requests\StorePelangganRequest;
 use App\Http\Requests\UpdatePelangganRequest;
 
@@ -60,6 +61,36 @@ class PelangganController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Pelanggan $pelanggan)
+    {
+        //
+    }
+
+    public function tambahPoint()
+    {
+        //
+    }
+
+    public function gunakanPoint()
+    {
+        //
+    }
+
+    public function updateLevel()
+    {
+        //
+    }
+
+    public function getByKode(Request $request)
+    {
+        //
+    }
+
+    public function searchByName(Request $request)
+    {
+        //
+    }
+
+    public function getRiwayatTransaksi()
     {
         //
     }

@@ -8,6 +8,21 @@ use App\Http\Requests\UpdateTransaksiItemRequest;
 
 class TransaksiItemController extends Controller
 {
+    public function transaksiItem()
+    {
+        //
+    }
+
+    public function hitungSubtotal()
+    {
+        //
+    }
+
+    public function updateJumlah()
+    {
+        //
+    }
+
     /**
      * Display a listing of the resource.
      */

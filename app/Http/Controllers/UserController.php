@@ -62,4 +62,14 @@ class UserController extends Controller
     {
         //
     }
+
+    public function getRole()
+    {
+        //
+    }
+
+    public function changePassword(Request $request)
+    {
+        //
+    }
 }

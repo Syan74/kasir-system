@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
@@ -24,6 +25,51 @@ class TransaksiController extends Controller
         //
     }
 
+    public function addItem(Produk $produk)
+    {
+        //
+    }
+
+    public function removeItem(Produk $produk)
+    {
+        //
+    }
+
+    public function updateItemQty(Produk $produk)
+    {
+        //
+    }
+
+    public function hitungTotal()
+    {
+        //
+    }
+
+    public function hitungKembalian()
+    {
+        //
+    }
+
+    public function prosesPembayaran()
+    {
+        //
+    }
+
+    public function batalkanTransaksi()
+    {
+        //
+    }
+
+    public function cetakStruk()
+    {
+        //
+    }
+
+    public function getDetailTransaksi()
+    {
+        //
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -36,6 +82,21 @@ class TransaksiController extends Controller
      * Display the specified resource.
      */
     public function show(Transaksi $transaksi)
+    {
+        //
+    }
+
+    public function getTransaksiByDate()
+    {
+        //
+    }
+
+    public function getTransaksiByKasir()
+    {
+        //
+    }
+
+    public function getTransaksiByPelanggan()
     {
         //
     }

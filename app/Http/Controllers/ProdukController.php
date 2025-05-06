@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\Kategori;
 use App\Http\Requests\StoreProdukRequest;
 use App\Http\Requests\UpdateProdukRequest;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProdukController extends Controller
 {
@@ -60,6 +62,16 @@ class ProdukController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Produk $produk)
+    {
+        //
+    }
+
+    public function searchByBarcode(Request $request)
+    {
+        //
+    }
+
+    public function getByKategori(Kategori $kategori)
     {
         //
     }

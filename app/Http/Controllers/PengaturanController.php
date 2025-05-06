@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengaturan;
 use App\Http\Requests\StorePengaturanRequest;
 use App\Http\Requests\UpdatePengaturanRequest;
+use Symfony\Component\HttpFoundation\Request;
 
 class PengaturanController extends Controller
 {
@@ -60,6 +61,16 @@ class PengaturanController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Pengaturan $pengaturan)
+    {
+        //
+    }
+
+    public function getPPN()
+    {
+        //
+    }
+
+    public function setPPN(Request $request)
     {
         //
     }
