@@ -11,12 +11,13 @@ use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\TransaksiItemController;
 
 Route::get('/', function () {
-    //
+    return view('admin.user.index');
+    // return view('login');
 });
 
-Route::get('login', [AuthController::class, 'login'])->middleware(['guest']);
-Route::post('login', [AuthController::class, 'loginProses'])->middleware(['guest']);
-Route::post('logout', [AuthController::class, 'logout'])->middleware(['auth']);
+Route::get('login', [AuthController::class, 'login'])->name('login')->middleware(['guest']);
+Route::post('login', [AuthController::class, 'loginProses'])->name('loginProses')->middleware(['guest']);
+Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware(['auth']);
 
 Route::resource('user', UserController::class)->middleware(['auth']);
 Route::resource('pelanggan', PelangganController::class)->middleware(['auth']);
