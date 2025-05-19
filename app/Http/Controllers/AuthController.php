@@ -14,13 +14,16 @@ class AuthController extends Controller
     public function loginProses(Request $request)
     {
         $credential = $request->validate([
-            'username',
-            'password',
+            'username' => 'required|string',
+            'password' => 'required',
         ]);
+
         if (Auth::attempt($credential)) {
             $request->session()->regenerate();
             return redirect('/');
         }
+
+        return redirect()->back()->with('error', 'Username atau password salah');
     }
     public function logout(Request $request)
     {

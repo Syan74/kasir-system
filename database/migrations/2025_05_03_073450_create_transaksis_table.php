@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('status');
             $table->foreignId('kasir_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('pelanggan_id')->constrained('pelanggans')->onDelete('cascade');
-            $table->array('items');
+            $table->json('items');
             $table->timestamps();
         });
     }
