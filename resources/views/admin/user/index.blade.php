@@ -576,10 +576,10 @@
                                     <tr class="bg-gray-50">
                                         <th
                                             class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Pengguna</th>
+                                            Full Name</th>
                                         <th
                                             class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Email</th>
+                                            Username</th>
                                         <th
                                             class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Role</th>
@@ -588,45 +588,45 @@
                                             Status</th>
                                         <th
                                             class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Login Terakhir</th>
-                                        <th
-                                            class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-100">
-                                    <template x-for="user in filteredUsers()" :key="user.id">
+                                    @foreach ($users as $data)
                                         <tr class="hover:bg-gray-50 transition duration-150">
                                             <td class="py-4 px-6">
                                                 <div class="flex items-center">
                                                     <div class="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center text-white font-semibold"
-                                                        x-text="getInitials(user.name)">AS</div>
+                                                        x-text="getInitials($data->nama)">
+                                                        {{ collect(explode(' ', $data->nama))->map(fn($word) => strtoupper(mb_substr($word, 0, 1)))->implode('') }}
+                                                    </div>
                                                     <div class="ml-4">
-                                                        <div class="font-medium text-gray-800" x-text="user.name">User
-                                                            Name</div>
+                                                        <div class="font-medium text-gray-800">
+                                                            {{ $data->nama }}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="py-4 px-6 text-sm text-gray-600" x-text="user.email">
-                                                user@email.com</td>
-                                            <td class="py-4 px-6">
-                                                <span
-                                                    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
-                                                    :class="user.role === 'admin' ? 'bg-purple-100 text-purple-800' :
-                                                        'bg-blue-100 text-blue-800'"
-                                                    x-text="user.role === 'admin' ? 'Admin' : 'Kasir'">Role</span>
+                                            <td class="py-4 px-6 text-sm text-gray-600">
+                                                {{ $data->username }}
                                             </td>
                                             <td class="py-4 px-6">
                                                 <span
                                                     class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
-                                                    :class="{
-                                                        'badge-active': user.status === 'active',
-                                                        'badge-inactive': user.status === 'inactive',
-                                                        'badge-pending': user.status === 'pending'
-                                                    }"
-                                                    x-text="user.status === 'active' ? 'Aktif' : user.status === 'inactive' ? 'Tidak Aktif' : 'Menunggu'">Status</span>
+                                                    :class="{{ $data->role === 'admin' }} ? 'bg-purple-100 text-purple-800' :
+                                                        'bg-blue-100 text-blue-800'">{{ $data->role }}</span>
                                             </td>
-                                            <td class="py-4 px-6 text-sm text-gray-500" x-text="user.lastLogin">-</td>
+                                            <td class="py-4 px-6">
+                                                <span
+                                                    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                        {{ $data->isActive == 1 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                    @if ($data->isActive == 1)
+                                                        Aktif
+                                                    @else
+                                                        Non Aktif
+                                                    @endif
+                                                </span>
+                                            </td>
                                             <td class="py-4 px-6">
                                                 <div class="flex space-x-2">
                                                     <button @click="editUser(user)"
@@ -670,7 +670,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    </template>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -741,23 +741,24 @@
                 </button>
             </div>
 
-            <form @submit.prevent="saveNewUser()">
+            <form action="{{ route('user.store') }}" method="POST">
+                @csrf
                 <div class="space-y-4">
                     <!-- Name Field -->
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nama
                             Lengkap</label>
-                        <input x-model="currentUser.name" type="text" id="name"
+                        <input x-model="currentUser.name" type="text" id="nama"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                             placeholder="Masukkan nama lengkap" required>
                     </div>
 
                     <!-- Email Field -->
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input x-model="currentUser.email" type="email" id="email"
+                        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                        <input x-model="currentUser.username" type="username" id="username"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                            placeholder="Masukkan email" required>
+                            placeholder="Masukkan Username" required>
                     </div>
 
                     <!-- Password Field -->
@@ -797,8 +798,8 @@
                                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent appearance-none bg-white"
                                 required>
                                 <option value="" disabled>Pilih status</option>
-                                <option value="active">Aktif</option>
-                                <option value="inactive">Tidak Aktif</option>
+                                <option value="aktif">Aktif</option>
+                                <option value="inaktif">Tidak Aktif</option>
                                 <option value="pending">Menunggu</option>
                             </select>
                             <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
@@ -904,9 +905,8 @@
                                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent appearance-none bg-white"
                                 required>
                                 <option value="" disabled>Pilih status</option>
-                                <option value="active">Aktif</option>
-                                <option value="inactive">Tidak Aktif</option>
-                                <option value="pending">Menunggu</option>
+                                <option value="1">Aktif</option>
+                                <option value="0">Tidak Aktif</option>
                             </select>
                             <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                                 <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor"
