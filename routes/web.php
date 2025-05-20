@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -11,9 +12,10 @@ use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\TransaksiItemController;
 
 Route::get('/', function () {
-    return view('admin.user.index');
-    // return view('login');
-});
+    if(Auth::user()->role == 'admin') {
+        return redirect()->route('user.index');
+    }
+})->middleware('auth');
 
 Route::get('login', [AuthController::class, 'login'])->name('login')->middleware(['guest']);
 Route::post('login', [AuthController::class, 'loginProses'])->name('loginProses')->middleware(['guest']);

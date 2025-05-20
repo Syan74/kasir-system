@@ -12,7 +12,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.index');
+        $users = User::all();
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -28,7 +29,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([]);
+        User::create($validated);
+        return redirect()->route('user.index');
     }
 
     /**
